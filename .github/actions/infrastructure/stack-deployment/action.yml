@@ -5,7 +5,7 @@ runs:
     - name: Deploy infrastructure stack
       shell: bash
       run: |
-        cd infrastructure.
+        cd infrastructure/
         cdk bootstrap
         cdk synth
         cdk deploy --require-approval-never
