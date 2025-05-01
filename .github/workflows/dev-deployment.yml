@@ -1,0 +1,53 @@
+name: deploy-infrastrcuture-to-dev
+
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+      - '!main'
+    paths:
+      - 'infrastructure/**'
+      - '.github/workflows/dev-deployment.yml'
+      - '.github/actions/infrastructure/**'
+
+permissions: 
+  contents: read
+  pull-requests: write
+  id-token: write
+  checks: write
+  actions: read
+
+jobs:
+  deploy-infrastructure-to-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+        AWS_DEFAULT_REGION: 'ap-south-1'
+        AWS_ACCOUNT_ENVIRONMENT: 'dev'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps: 
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Cofigure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env. AWS_DEFAULT_REGION }}
+      
+      - name: Set up node 23.11.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 23.11.0
+      
+      - name: Install dependencies and build infrastructure
+        uses: ./.github/actions/infrastructure/build
+        
+      - name: Deploy infrastrcuture stack
+        uses: ./.github/actions/infrastructure/stack-deployment

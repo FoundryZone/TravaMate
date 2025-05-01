@@ -1,0 +1,11 @@
+name: Deploy infrastructure stack
+runs: 
+  using: 'composite'
+  steps: 
+    - name: Deploy infrastructure stack
+      shell: bash
+      run: |
+        cd infrastructure.
+        cdk bootstrap
+        cdk synth
+        cdk deploy --require-approval-never

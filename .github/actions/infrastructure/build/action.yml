@@ -1,0 +1,18 @@
+name: Build Infrastructure Package
+runs:
+  using: 'composite'
+  steps:
+    - name: Install dependencies and build infrastructure
+      shell: bash
+      run: |
+        cd infrastructure/
+        npm ci
+        npm install -g aws-cdk
+        npm run build
+
+    - name: Run unit tests on infrastructure
+      shell: bash
+      if: ${{ env. AWS_ACCOUNT_ENVIRONEMNT != 'production' && github.event.name != 'pull_request' }}
+      run: |
+        cd infrastructure/
+        npm run test
