@@ -1,4 +1,4 @@
-name: deploy-infrastrcuture-to-dev
+name: deploy-infrastructure-to-dev
 
 on:
   pull_request:

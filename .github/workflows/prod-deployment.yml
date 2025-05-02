@@ -1,4 +1,4 @@
-name: deploy-infrastrcuture-to-production
+name: deploy-infrastructure-to-production
 
 on:
   workflow_dispatch:

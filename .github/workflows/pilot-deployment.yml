@@ -1,4 +1,4 @@
-name: deploy-infrastrcuture-to-pilot
+name: deploy-infrastructure-to-pilot
 
 on:
   push:
