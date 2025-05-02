@@ -5,16 +5,6 @@ on:
     branches:
       - 'main'
     types: [opened, synchronize, reopened]
-  push:
-    branches:
-      - '*'
-      - '*/*'
-      - '**'
-      - '!main'
-    paths:
-      - 'infrastructure/**'
-      - '.github/workflows/dev-deployment.yml'
-      - '.github/actions/infrastructure/**'
 
 permissions: 
   contents: read
