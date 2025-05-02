@@ -1,13 +1,12 @@
-import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import { BaseStack, MyStackProps } from '../base-stack';
 
-export class TravaMateInfraStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class TravaMateInfraStack extends BaseStack {
+  constructor(scope: Construct, id: string, props?: MyStackProps) {
     super(scope, id, props);
-
-    let secret =  new secretsmanager.Secret(this, "MyTestSecret", {
-      secretName: "MyTestSecret"
+    let secret =  new secretsmanager.Secret(this,  `MyTestSecret`, {
+      secretName:   `MyTestSecret${props?.suffix}` 
     })
   }
 }
