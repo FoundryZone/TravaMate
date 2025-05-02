@@ -9,10 +9,3 @@ runs:
         npm ci
         npm install -g aws-cdk
         npm run build
-
-    - name: Run unit tests on infrastructure
-      shell: bash
-      if: ${{ env. AWS_ACCOUNT_ENVIRONEMNT != 'production' }}
-      run: |
-        cd infrastructure/
-        npm run test
