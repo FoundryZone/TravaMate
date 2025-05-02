@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - 'main'
+    types: [opened, synchronize, reopened]
 
 permissions: 
   contents: read
@@ -13,7 +14,7 @@ permissions:
   actions: read
 
 jobs:
-  deploy-infrastructure-to-dev:
+  run-infrastructure-tests-on-pull-request:
     runs-on: ubuntu-latest
     environment:
       name: dev
