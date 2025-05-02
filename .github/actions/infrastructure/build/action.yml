@@ -12,7 +12,7 @@ runs:
 
     - name: Run unit tests on infrastructure
       shell: bash
-      if: ${{ env. AWS_ACCOUNT_ENVIRONEMNT != 'production' && github.event.name != 'pull_request' }}
+      if: ${{ env. AWS_ACCOUNT_ENVIRONEMNT != 'production' }}
       run: |
         cd infrastructure/
         npm run test
