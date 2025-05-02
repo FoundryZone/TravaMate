@@ -3,7 +3,10 @@ import * as cdk from 'aws-cdk-lib';
 import { TravaMateInfraStack } from '../src/trava_mate_infra-stack';
 
 const app = new cdk.App();
-new TravaMateInfraStack(app, 'TravaMateInfraStack', {
+const suffixProvided = app.node.tryGetContext('suffix');
+const suffix = suffixProvided ? `-${suffixProvided}`: "";
+
+new TravaMateInfraStack(app, `TravaMateInfraStack${suffix}`, { suffix: suffix
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
