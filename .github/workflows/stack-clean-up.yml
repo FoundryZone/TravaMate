@@ -37,9 +37,4 @@ jobs:
 
       - name: Delete cloudFormation stack
         run: |
-          STACK_NAME="TravaMateInfraStack-${{ steps.fetch-feature-branch-name.outputs.branch_name }}"
-          echo "Deleting CloudFormation stack: $STACK_NAME"
-          aws cloudformation delete-stack --stack-name "$STACK_NAME"
-          echo "Waiting for stack deletion to complete..."
-          aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME"
-          echo "Stack deleted: $STACK_NAME"
+          cdk destroy -c suffix="${{ steps.fetch-feature-branch-name.outputs.branch_name }}" --all
