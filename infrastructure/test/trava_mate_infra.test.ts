@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import * as TravaMateInfra from "../src/trava_mate_infra-stack";
+import * as TravaMateInfra from "../src/trava_mate_booking_agent-stack";
 
 function createTemplate() {
   const app = new cdk.App();
