@@ -38,4 +38,5 @@ jobs:
 
       - name: Delete cloudFormation stack
         run: |
+          cd infrastructure/
           cdk destroy -c suffix="${{ github.event.pull_request.head.ref }}" --all --force
