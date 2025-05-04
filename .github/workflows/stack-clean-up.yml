@@ -45,4 +45,4 @@ jobs:
 
       - name: Delete cloudFormation stack
         run: |
-          cdk destroy -c suffix="${{ steps.fetch-feature-branch-name.outputs.branch_name }}" --all
+          cdk destroy -c suffix="${{ steps.fetch-feature-branch-name.outputs.branch_name }}" --all --force
