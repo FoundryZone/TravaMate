@@ -33,17 +33,9 @@ jobs:
         with:
             node-version: 23.11.0
 
-      - name: Install AWS CDK
-        run: npm install -g aws-cdk
-
-      - name: Fetch feature branch name
-        id: fetch-feature-branch-name
-        run: |
-          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
-          echo "Branch Name: $BRANCH_NAME"
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+      - name: Install dependencies and build infrastructure
+        uses: ./.github/actions/infrastructure/build
 
       - name: Delete cloudFormation stack
         run: |
-          cd infrastructure/ 
-          cdk destroy -c suffix="${{ steps.fetch-feature-branch-name.outputs.branch_name }}" --all --force
+          cdk destroy -c suffix="${{ github.event.pull_request.head.ref }}" --all --force
