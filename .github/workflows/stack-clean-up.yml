@@ -28,6 +28,11 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
+      - name: Set up node 23.11.0
+        uses: actions/setup-node@v1
+        with:
+            node-version: 23.11.0
+
       - name: Install AWS CDK
         run: npm install -g aws-cdk
 
