@@ -28,6 +28,14 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
+      - name: Set up node 23.11.0
+        uses: actions/setup-node@v1
+        with:
+            node-version: 23.11.0
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
+
       - name: Fetch feature branch name
         id: fetch-feature-branch-name
         run: |
@@ -37,4 +45,4 @@ jobs:
 
       - name: Delete cloudFormation stack
         run: |
-          cdk destroy -c suffix="${{ steps.fetch-feature-branch-name.outputs.branch_name }}" --all
+          cdk destroy -c suffix="${{ steps.fetch-feature-branch-name.outputs.branch_name }}" --all --force
