@@ -28,6 +28,9 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk
+
       - name: Fetch feature branch name
         id: fetch-feature-branch-name
         run: |
