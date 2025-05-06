@@ -38,6 +38,6 @@ test("Agent Created", () => {
 
 test("Agent Alias Created", () => {
   agentStacktemplate.hasResourceProperties("AWS::Bedrock::AgentAlias", {
-    AgentAliasName: `hotelBookingAgentAlias`,
+    AgentAliasName: `HotelBookingAgentAlias`,
   });
 });
