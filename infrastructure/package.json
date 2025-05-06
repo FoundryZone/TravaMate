@@ -8,8 +8,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk",
-    "locally": "node --input-type=module -e \"import {handler} from './index.mjs'; console.log(await handler(JSON.parse(fs.readFileSync('./event.json'))));\""
+    "cdk": "cdk"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.149",
