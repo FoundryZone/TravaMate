@@ -8,4 +8,4 @@ runs:
         cd infrastructure/
         cdk bootstrap
         cdk synth
-        cdk deploy -c suffix="${{ env.AWS_ACCOUNT_ENVIRONMENT }}" --require-approval-never
+        cdk deploy -c suffix="${{ env.AWS_ACCOUNT_ENVIRONMENT }}" --all --require-approval-never
