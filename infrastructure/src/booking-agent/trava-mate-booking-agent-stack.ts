@@ -15,7 +15,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
   ) {
     super(scope, id, props);
 
-    var bedrockAgentRole = new iam.Role(this, "BookingAgentRole", {
+    const bedrockAgentRole = new iam.Role(this, "BookingAgentRole", {
       roleName: `BookingAgentRole${props?.suffix}`,
       assumedBy: new iam.ServicePrincipal("bedrock.amazonaws.com"),
       managedPolicies: [
@@ -42,8 +42,8 @@ export class TravaMateBookingAgentStack extends BaseStack {
       })
     );
 
-    var agentInstructions = fs.readFileSync("src/booking-agent/instructions.txt").toString();
-    var apipSchema = fs
+    const agentInstructions = fs.readFileSync("src/booking-agent/instructions.txt").toString();
+    const apipSchema = fs
       .readFileSync("src/booking-agent/booking-agent-openapi-schema.yml")
       .toString();
 
@@ -52,7 +52,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
       description:
         "This agent will book hotel accomodations and travel tickets",
       autoPrepare: true,
-      foundationModel: "anthropic.claude-3-5-sonnet-20241022-v2:0",
+      foundationModel: "anthropic.claude-3-5-sonnet-20240620-v1:0",
       agentResourceRoleArn: bedrockAgentRole.roleArn,
       actionGroups: [
         {

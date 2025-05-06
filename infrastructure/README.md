@@ -15,7 +15,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 # run following command to create stak for your branch
 
-* `cdk deploy -c suffix="TM-4" --all`
+* `cdk deploy -c suffix="<branch-name>" --all`
 
 # run following command to run deployed lambda
 

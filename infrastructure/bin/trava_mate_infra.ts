@@ -4,6 +4,7 @@ import { TravaMateBookingAgentStack } from "../src/booking-agent/trava-mate-book
 import { TravMateAgentBookingLambdaStack } from "../src/booking-agent/trava-mate-booking-lambda-stack";
 
 const app = new cdk.App();
+
 const suffixProvided = app.node.tryGetContext("suffix");
 const suffix = suffixProvided ? `-${suffixProvided}` : "";
 const stackProps = {
@@ -13,18 +14,19 @@ const stackProps = {
     region: process.env.CDK_DEFAULT_REGION,
   },
 };
+
 const bookingLambdaStack = new TravMateAgentBookingLambdaStack(
   app,
   `TravMateAgentBookingLambdaStack${suffix}`,
   stackProps
 );
+
 const travaMateBookingAgentStack =  new TravaMateBookingAgentStack(
   app,
   bookingLambdaStack.bookingLambda,
   `TravaMateBookingAgentStack${suffix}`,
   stackProps
 );
-
 
 travaMateBookingAgentStack.addDependency(bookingLambdaStack);
 
