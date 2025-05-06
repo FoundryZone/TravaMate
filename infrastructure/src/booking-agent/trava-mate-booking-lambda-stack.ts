@@ -24,22 +24,6 @@ export class TravMateAgentBookingLambdaStack extends BaseStack {
       value: this.bookingLambda.functionArn,
     });
 
-    var addExecuttionPolicy = this.bookingLambda.addToRolePolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: ["bedrock:*"],
-        resources: ["*"],
-      })
-    );
-
-    // this.bookingLambda.role?.addManagedPolicy(
-    //   iam.ManagedPolicy.fromManagedPolicyName(
-    //     this,
-    //     "AmazonS3FullAccess",
-    //     "AmazonS3FullAccess"
-    //   )
-    // );
-
     this.bookingLambda.addPermission("AllowBedrock", {
       principal: new iam.ServicePrincipal("bedrock.amazonaws.com"),
       action: "lambda:InvokeFunction",

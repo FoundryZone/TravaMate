@@ -36,6 +36,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
           "bedrock:InvokeModel",
           "bedrock:InvokeModelEndpoint",
           "bedrock:InvokeModelEndpointAsync",
+          "bedrock:InvokeModelWithResponseStream",
         ],
         resources: ["*"],
       })
@@ -51,7 +52,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
       description:
         "This agent will book hotel accomodations and travel tickets",
       autoPrepare: true,
-      foundationModel: "anthropic.claude-3-sonnet-20240229-v1:0",
+      foundationModel: "anthropic.claude-3-5-sonnet-20241022-v2:0",
       agentResourceRoleArn: bedrockAgentRole.roleArn,
       actionGroups: [
         {
@@ -77,7 +78,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
     });
 
     const agentAlias = new bedrock.CfnAgentAlias(this, "BookingAgentAlias", {
-      agentAliasName: "hotelBookingAgentAlias",
+      agentAliasName: `HotelBookingAgentAlias${props?.suffix}`,
       agentId: bookingAgent.ref,
     });
 

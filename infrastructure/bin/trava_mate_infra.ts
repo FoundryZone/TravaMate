@@ -18,9 +18,13 @@ const bookingLambdaStack = new TravMateAgentBookingLambdaStack(
   `TravMateAgentBookingLambdaStack${suffix}`,
   stackProps
 );
-new TravaMateBookingAgentStack(
+const travaMateBookingAgentStack =  new TravaMateBookingAgentStack(
   app,
   bookingLambdaStack.bookingLambda,
   `TravaMateBookingAgentStack${suffix}`,
   stackProps
 );
+
+
+travaMateBookingAgentStack.addDependency(bookingLambdaStack);
+
