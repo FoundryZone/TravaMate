@@ -5,14 +5,14 @@ import { Construct } from "constructs";
 import { BaseStack, MyStackProps } from "../../base-stack";
 import * as path from "node:path";
 
-export class TravaMateAgentBookingLambdaStack extends BaseStack {
-  public bookingLambda: lambda.Function;
+export class TravaMateItenaryPlannerLambdaStack extends BaseStack {
+  public iternaryPlannerLambda: lambda.Function;
 
   constructor(scope: Construct, id: string, props?: MyStackProps) {
     super(scope, id, props);
 
-    this.bookingLambda = new lambda.Function(this, "BookingLambda", {
-      functionName: `BookingLambda${props?.suffix}`,
+    this.iternaryPlannerLambda = new lambda.Function(this, "ItenaryPlannerLambda", {
+      functionName: `ItenaryPlannerLambda${props?.suffix}`,
       runtime: lambda.Runtime.NODEJS_22_X,
       code: lambda.Code.fromAsset(path.join(__dirname, "lambda-handler")),
       handler: "index.handler",
@@ -20,11 +20,11 @@ export class TravaMateAgentBookingLambdaStack extends BaseStack {
       memorySize: 128,
     });
 
-    new CfnOutput(this, "BookingLambdaARN", {
-      value: this.bookingLambda.functionArn,
+    new CfnOutput(this, "ItenaryPlannerLambdaARN", {
+      value: this.iternaryPlannerLambda.functionArn,
     });
 
-    this.bookingLambda.addPermission("AllowBedrock", {
+    this.iternaryPlannerLambda.addPermission("AllowBedrock", {
       principal: new iam.ServicePrincipal("bedrock.amazonaws.com"),
       action: "lambda:InvokeFunction",
       sourceArn: `arn:aws:bedrock:${props?.env?.region}:${props?.env?.account}:agent/*`,

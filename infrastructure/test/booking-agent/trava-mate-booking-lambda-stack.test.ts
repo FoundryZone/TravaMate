@@ -1,7 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import * as TravaMateInfra from "../src/booking-agent/trava-mate-booking-agent-stack";
-import * as BookingLambdaInfra from "../src/booking-agent/trava-mate-booking-lambda-stack";
+import * as BookingLambdaInfra from "../../src/booking-agent/trava-mate-booking-lambda-stack";
 
 function createAgentLambdatemplate() {
   const app = new cdk.App();
@@ -9,7 +8,7 @@ function createAgentLambdatemplate() {
     suffix: "",
   };
   const bookingAgentLambdaStack =
-    new BookingLambdaInfra.TravMateAgentBookingLambdaStack(
+    new BookingLambdaInfra.TravaMateAgentBookingLambdaStack(
       app,
       "TravMateAgentBookingLambdaStack",
       stackProps
