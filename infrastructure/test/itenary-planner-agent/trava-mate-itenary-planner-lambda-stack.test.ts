@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import * as ItenaryPlannerLambdaInfra from "../../src/Itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
+import * as ItenaryPlannerLambdaInfra from "../../src/itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
 
 function createAgentLambdatemplate() {
   const app = new cdk.App();

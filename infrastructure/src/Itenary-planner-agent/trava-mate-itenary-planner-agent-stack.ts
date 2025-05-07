@@ -37,7 +37,7 @@ export class TravaMateItenaryPlannerAgentStack extends BaseStack {
       })
     );
 
-    const agentInstructions = fs.readFileSync("src/itenary-planner-agent/instructions.txt").toString();
+    const agentInstructions = fs.readFileSync("src/itenary-planner-agent/itenary-planner-agent-instructions.txt").toString();
     const apipSchema = fs
       .readFileSync("src/itenary-planner-agent/itenary-planner-agent-openapi-schema.yml")
       .toString();

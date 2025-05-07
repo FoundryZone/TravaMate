@@ -2,8 +2,8 @@
 import * as cdk from "aws-cdk-lib";
 import { TravaMateBookingAgentStack } from "../src/booking-agent/trava-mate-booking-agent-stack";
 import { TravaMateAgentBookingLambdaStack } from "../src/booking-agent/trava-mate-booking-lambda-stack";
-import { TravaMateItenaryPlannerLambdaStack } from "../src/Itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
-import { TravaMateItenaryPlannerAgentStack } from "../src/Itenary-planner-agent/trava-mate-itenary-planner-agent-stack";
+import { TravaMateItenaryPlannerLambdaStack } from "../src/itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
+import { TravaMateItenaryPlannerAgentStack } from "../src/itenary-planner-agent/trava-mate-itenary-planner-agent-stack";
 
 const app = new cdk.App();
 
