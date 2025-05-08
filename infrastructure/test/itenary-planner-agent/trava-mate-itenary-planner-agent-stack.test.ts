@@ -6,6 +6,7 @@ import * as TravaMateItenaryPlannerLambdaInfra from "../../src/itenary-planner-a
 function createAgentStacktemplate() {
   const app = new cdk.App();
   const stackProps = {suffix: ""};
+  
   const itenaryPlannerLambdaStack = new TravaMateItenaryPlannerLambdaInfra.TravaMateItenaryPlannerLambdaStack(
       app,
       "TravMateItenaryPlannerLambdaStack",
