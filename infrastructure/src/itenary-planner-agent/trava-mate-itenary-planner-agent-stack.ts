@@ -6,12 +6,12 @@ import { aws_bedrock as bedrock } from "aws-cdk-lib";
 import { Function } from "aws-cdk-lib/aws-lambda";
 import * as fs from "fs";
 
-export class TravaMateBookingAgentStack extends BaseStack {
-  constructor(scope: Construct,bookingLambda: Function,id: string,props?: MyStackProps) {
+export class TravaMateItenaryPlannerAgentStack extends BaseStack {
+  constructor(scope: Construct, iternaryPlannerLambda: Function, id: string, props?: MyStackProps) {
     super(scope, id, props);
 
-    const bedrockAgentRole = new iam.Role(this, "BookingAgentRole", {
-      roleName: `BookingAgentRole${props?.suffix}`,
+    const bedrockAgentRole = new iam.Role(this, "ItenaryPlannerAgentRole", {
+      roleName: `ItenaryPlannerAgentRole${props?.suffix}`,
       assumedBy: new iam.ServicePrincipal("bedrock.amazonaws.com"),
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonBedrockFullAccess"),
@@ -37,24 +37,24 @@ export class TravaMateBookingAgentStack extends BaseStack {
       })
     );
 
-    const agentInstructions = fs.readFileSync("src/booking-agent/instructions.txt").toString();
+    const agentInstructions = fs.readFileSync("src/itenary-planner-agent/itenary-planner-agent-instructions.txt").toString();
     const apipSchema = fs
-      .readFileSync("src/booking-agent/booking-agent-openapi-schema.yml")
+      .readFileSync("src/itenary-planner-agent/itenary-planner-agent-openapi-schema.yml")
       .toString();
 
-    const bookingAgent = new bedrock.CfnAgent(this, `HotelBookingAgent`, {
-      agentName: `HotelBookingAgent${props?.suffix}`,
+    const itenaryPlannerAgent = new bedrock.CfnAgent(this, `ItenaryPlannerAgent`, {
+      agentName: `ItenaryPlannerAgent${props?.suffix}`,
       description:
-        "This agent will book hotel accomodations and travel tickets",
+        "This agent will plan itenary based on the user requirements",
       autoPrepare: true,
-      foundationModel: "anthropic.claude-3-5-sonnet-20240620-v1:0",
+      foundationModel: "apac.anthropic.claude-3-5-sonnet-20241022-v2:0",
       agentResourceRoleArn: bedrockAgentRole.roleArn,
       actionGroups: [
         {
-          actionGroupName: "HotelBookingAgent",
-          description: "This action group wll handle all types of bookings.",
+          actionGroupName: "ItenaryPlannerAgent",
+          description: "This action group wll handle all types of itenary planning.",
           actionGroupExecutor: {
-            lambda: bookingLambda.functionArn,
+            lambda: iternaryPlannerLambda.functionArn,
           },
           apiSchema: {
             payload: apipSchema,
@@ -65,19 +65,19 @@ export class TravaMateBookingAgentStack extends BaseStack {
     });
 
     new CfnOutput(this, "BedrockAgentId", {
-      value: bookingAgent.ref,
+      value: itenaryPlannerAgent.ref,
     });
 
     new CfnOutput(this, "BedrockAgentModelName", {
-      value: bookingAgent.foundationModel ?? "",
+      value: itenaryPlannerAgent.foundationModel ?? "",
     });
 
-    const agentAlias = new bedrock.CfnAgentAlias(this, "BookingAgentAlias", {
-      agentAliasName: `HotelBookingAgentAlias${props?.suffix}`,
-      agentId: bookingAgent.ref,
+    const agentAlias = new bedrock.CfnAgentAlias(this, "ItenaryPlannerAgentAlias", {
+      agentAliasName: `ItenaryPlannerAgentAlias${props?.suffix}`,
+      agentId: itenaryPlannerAgent.ref,
     });
 
-    agentAlias.addDependency(bookingAgent);
+    agentAlias.addDependency(itenaryPlannerAgent);
 
     new CfnOutput(this, "BedrockAgentModelAliasName", {
       value: agentAlias.ref.split("|")[0],
