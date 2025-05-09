@@ -47,7 +47,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
       description:
         "This agent will book hotel accomodations and travel tickets",
       autoPrepare: true,
-      foundationModel: "anthropic.claude-3-5-sonnet-20240620-v1:0",
+      foundationModel: "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
       agentResourceRoleArn: bedrockAgentRole.roleArn,
       actionGroups: [
         {

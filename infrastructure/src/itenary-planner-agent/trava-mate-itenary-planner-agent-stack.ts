@@ -47,7 +47,7 @@ export class TravaMateItenaryPlannerAgentStack extends BaseStack {
       description:
         "This agent will plan itenary based on the user requirements",
       autoPrepare: true,
-      foundationModel: "apac.anthropic.claude-3-5-sonnet-20241022-v2:0",
+      foundationModel: "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
       agentResourceRoleArn: bedrockAgentRole.roleArn,
       actionGroups: [
         {
