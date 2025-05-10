@@ -3,7 +3,6 @@ import { BaseStack, MyStackProps } from "../../base-stack";
 import * as iam from "aws-cdk-lib/aws-iam";
 import { CfnOutput } from "aws-cdk-lib";
 import { aws_bedrock as bedrock } from "aws-cdk-lib";
-import { Function } from "aws-cdk-lib/aws-lambda";
 import * as fs from "fs";
 
 export class SupervisorAgentStack extends BaseStack {
