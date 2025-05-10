@@ -5,39 +5,22 @@ import { CfnOutput } from "aws-cdk-lib";
 import { aws_bedrock as bedrock } from "aws-cdk-lib";
 import { Function } from "aws-cdk-lib/aws-lambda";
 import * as fs from "fs";
+import { CfnAgent } from "aws-cdk-lib/aws-bedrock";
 
 export class TravaMateBookingAgentStack extends BaseStack {
-  constructor(scope: Construct,bookingLambda: Function,id: string,props?: MyStackProps) {
+  public agentCollaborator: CfnAgent.AgentCollaboratorProperty;
+  constructor(
+    scope: Construct,
+    bookingLambda: Function,
+    bedrockAgentRole: iam.Role,
+    id: string,
+    props?: MyStackProps
+  ) {
     super(scope, id, props);
 
-    const bedrockAgentRole = new iam.Role(this, "BookingAgentRole", {
-      roleName: `BookingAgentRole${props?.suffix}`,
-      assumedBy: new iam.ServicePrincipal("bedrock.amazonaws.com"),
-      managedPolicies: [
-        iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonBedrockFullAccess"),
-        iam.ManagedPolicy.fromAwsManagedPolicyName("AWSLambda_FullAccess"),
-        iam.ManagedPolicy.fromAwsManagedPolicyName("CloudWatchLogsFullAccess"),
-      ],
-    });
-
-    new CfnOutput(this, "AgentRoleARN", {
-      value: bedrockAgentRole.roleArn,
-    });
-
-    bedrockAgentRole.addToPolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: [
-          "bedrock:InvokeModel",
-          "bedrock:InvokeModelEndpoint",
-          "bedrock:InvokeModelEndpointAsync",
-          "bedrock:InvokeModelWithResponseStream",
-        ],
-        resources: ["*"],
-      })
-    );
-
-    const agentInstructions = fs.readFileSync("src/booking-agent/instructions.txt").toString();
+    const agentInstructions = fs
+      .readFileSync("src/booking-agent/instructions.txt")
+      .toString();
     const apipSchema = fs
       .readFileSync("src/booking-agent/booking-agent-openapi-schema.yml")
       .toString();
@@ -72,7 +55,7 @@ export class TravaMateBookingAgentStack extends BaseStack {
       value: bookingAgent.foundationModel ?? "",
     });
 
-    const agentAlias = new bedrock.CfnAgentAlias(this, "BookingAgentAlias", {
+    var agentAlias = new bedrock.CfnAgentAlias(this, "BookingAgentAlias", {
       agentAliasName: `HotelBookingAgentAlias${props?.suffix}`,
       agentId: bookingAgent.ref,
     });
@@ -82,5 +65,14 @@ export class TravaMateBookingAgentStack extends BaseStack {
     new CfnOutput(this, "BedrockAgentModelAliasName", {
       value: agentAlias.ref.split("|")[0],
     });
+
+    this.agentCollaborator = {
+      agentDescriptor: {
+        aliasArn: agentAlias.attrAgentAliasArn,
+      },
+      collaborationInstruction:
+        "This agent will be responsible for booking any type of bookings like hotel, travel, etc.",
+      collaboratorName: "BookingAgent",
+    };
   }
 }
