@@ -1,7 +1,7 @@
 import {
   BedrockAgentInvocationInput,
   BedrockAgentInvocationResponse,
-} from "../../../types";
+} from "../../types";
 
 export const handler = async ({
   inputText,
