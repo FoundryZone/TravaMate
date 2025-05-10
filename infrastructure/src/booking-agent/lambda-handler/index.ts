@@ -16,13 +16,14 @@ export const handler = async ({
   let responseText = "{}";
   let httpStatusCode = 200;
   switch (apiPath) {
-    case "/greet":
-      const name = parameters.find((x) => x.name === "name");
-      if (name) {
-        responseText = `Hello ${name?.value}`;
+    case "/book-hotel":
+      const hotelName = parameters.find((x) => x.name === "hotelName");
+      const bookingDatte = parameters.find((x) => x.name === "bookingDatte");
+      if (hotelName && bookingDatte) {
+        responseText = `Booking successful with id - 1076`;
         httpStatusCode = 200;
       } else {
-        responseText = ` Bad Request - Missing or invalid name parameter`;
+        responseText = ` Bad Request - Missing or invalid hotelName or bookingDatte parameter`;
         httpStatusCode = 400;
       }
       break;

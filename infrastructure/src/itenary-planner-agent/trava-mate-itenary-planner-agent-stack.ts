@@ -83,8 +83,8 @@ export class TravaMateItenaryPlannerAgentStack extends BaseStack {
         aliasArn: agentAlias.attrAgentAliasArn,
       },
       collaborationInstruction:
-        "This agent will be responsible for booking any type of bookings like hotel, travel, etc.",
-      collaboratorName: "BookingAgent",
+        "This agent will be responsible for planning user travel iteneries.",
+      collaboratorName: "ItenaryPlannerAgent",
     };
   }
 }

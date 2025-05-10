@@ -20,9 +20,9 @@ export class SupervisorAgentStack extends BaseStack {
       .readFileSync("src/supervisor-agent/agent-instructions.txt")
       .toString();
 
-    const itenaryPlannerAgent = new bedrock.CfnAgent(
+    const supervisorAgent = new bedrock.CfnAgent(
       this,
-      `ItenaryPlannerAgent`,
+      `SupervisorAgent`,
       {
         agentName: `SupervisorAgent${props?.suffix}`,
         description: "This agent will supervise the bookings and planning.",
@@ -36,22 +36,26 @@ export class SupervisorAgentStack extends BaseStack {
     );
 
     new CfnOutput(this, "BedrockAgentId", {
-      value: itenaryPlannerAgent.ref,
+      value: supervisorAgent.ref,
     });
 
     new CfnOutput(this, "BedrockAgentModelName", {
-      value: itenaryPlannerAgent.foundationModel ?? "",
+      value: supervisorAgent.foundationModel ?? "",
     });
 
     const agentAlias = new bedrock.CfnAgentAlias(this, "SupervisorAgentAlias", {
       agentAliasName: `SupervisorAgentAlias${props?.suffix}`,
-      agentId: itenaryPlannerAgent.ref,
+      agentId: supervisorAgent.ref,
     });
 
-    agentAlias.addDependency(itenaryPlannerAgent);
+    agentAlias.addDependency(supervisorAgent);
 
     new CfnOutput(this, "BedrockAgentModelAliasName", {
       value: agentAlias.ref.split("|")[0],
+    });
+
+    new CfnOutput(this, "SupervisorCollaborators", {
+      value: supervisorAgent.agentCollaborators?.toString() ?? "",
     });
   }
 }

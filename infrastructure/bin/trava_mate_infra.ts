@@ -20,58 +20,59 @@ const stackProps = {
   },
 };
 
-const travaMateCommonStack = new TravaMateCommonStack(
+const commonStack = new TravaMateCommonStack(
   app,
   `TravaMateCommonStack${suffix}`,
   stackProps
 );
 
-const travaMateItenaryPlannerLambdaStack =
+const itenaryPlannerLambdaStack =
   new TravaMateItenaryPlannerLambdaStack(
     app,
     `TravMateItenaryPlannerLambdaStack${suffix}`,
     stackProps
   );
 
-const travaMateItenaryPlannerAgentStack = new TravaMateItenaryPlannerAgentStack(
+const itenaryPlannerAgentStack = new TravaMateItenaryPlannerAgentStack(
   app,
-  travaMateItenaryPlannerLambdaStack.iternaryPlannerLambda,
-  travaMateCommonStack.bedrockAgentRole,
+  itenaryPlannerLambdaStack.iternaryPlannerLambda,
+  commonStack.bedrockAgentRole,
   `TravaMateItenaryPlannerAgentStack${suffix}`,
   stackProps
 );
 
-travaMateItenaryPlannerAgentStack.addDependency(
-  travaMateItenaryPlannerLambdaStack
-);
-
-const travaMateBookingLambdaStack = new TravaMateAgentBookingLambdaStack(
+const bookingLambdaStack = new TravaMateAgentBookingLambdaStack(
   app,
   `TravMateAgentBookingLambdaStack${suffix}`,
   stackProps
 );
 
-const travaMateBookingAgentStack = new TravaMateBookingAgentStack(
+const bookingAgentStack = new TravaMateBookingAgentStack(
   app,
-  travaMateBookingLambdaStack.bookingLambda,
-  travaMateCommonStack.bedrockAgentRole,
+  bookingLambdaStack.bookingLambda,
+  commonStack.bedrockAgentRole,
   `TravaMateBookingAgentStack${suffix}`,
   stackProps
 );
 
 const agentCollaborators: CfnAgent.AgentCollaboratorProperty[] = [
-  travaMateItenaryPlannerAgentStack.agentCollaborator,
-  travaMateBookingAgentStack.agentCollaborator,
+  itenaryPlannerAgentStack.agentCollaborator,
+  bookingAgentStack.agentCollaborator,
 ];
 
 const supervisorAgentStack = new SupervisorAgentStack(
   app,
   agentCollaborators,
-  travaMateCommonStack.bedrockAgentRole,
+  commonStack.bedrockAgentRole,
   `SupervisorAgentStack${suffix}`,
   stackProps
 );
 
-travaMateBookingAgentStack.addDependency(travaMateBookingLambdaStack);
-supervisorAgentStack.addDependency(travaMateItenaryPlannerAgentStack);
-supervisorAgentStack.addDependency(travaMateBookingAgentStack);
+itenaryPlannerAgentStack.addDependency(commonStack);
+bookingAgentStack.addDependency(commonStack);
+supervisorAgentStack.addDependency(commonStack);
+
+bookingAgentStack.addDependency(bookingLambdaStack);
+itenaryPlannerAgentStack.addDependency(itenaryPlannerLambdaStack);
+supervisorAgentStack.addDependency(itenaryPlannerAgentStack);
+supervisorAgentStack.addDependency(bookingAgentStack);
