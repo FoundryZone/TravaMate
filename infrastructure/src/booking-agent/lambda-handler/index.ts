@@ -18,12 +18,12 @@ export const handler = async ({
   switch (apiPath) {
     case "/book-hotel":
       const hotelName = parameters.find((x) => x.name === "hotelName");
-      const bookingDatte = parameters.find((x) => x.name === "bookingDatte");
-      if (hotelName && bookingDatte) {
+      const bookingDate = parameters.find((x) => x.name === "bookingDate");
+      if (hotelName && bookingDate) {
         responseText = `Booking successful with id - 1076`;
         httpStatusCode = 200;
       } else {
-        responseText = ` Bad Request - Missing or invalid hotelName or bookingDatte parameter`;
+        responseText = ` Bad Request - Missing or invalid hotelName or bookingDate parameter`;
         httpStatusCode = 400;
       }
       break;

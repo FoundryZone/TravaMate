@@ -18,7 +18,7 @@ paths:
           schema:
             type: string
             example: "Taj Mahal"
-        - name: bookingDatte
+        - name: bookingDate
           in: query
           required: true
           description: "Date of the booking"
@@ -38,7 +38,7 @@ paths:
                     description: "Booking response with booking id."
                     example: "Booking successful with id - 1076"
         '400':
-          description: "Bad Request - Missing or invalid hotelName or bookingDatte parameter"
+          description: "Bad Request - Missing or invalid hotelName or bookingDate parameter"
           content:
             application/json:
               schema:

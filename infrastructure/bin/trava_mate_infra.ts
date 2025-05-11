@@ -2,8 +2,8 @@
 import * as cdk from "aws-cdk-lib";
 import { TravaMateBookingAgentStack } from "../src/booking-agent/trava-mate-booking-agent-stack";
 import { TravaMateAgentBookingLambdaStack } from "../src/booking-agent/trava-mate-booking-lambda-stack";
-import { TravaMateItenaryPlannerLambdaStack } from "../src/itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
-import { TravaMateItenaryPlannerAgentStack } from "../src/itenary-planner-agent/trava-mate-itenary-planner-agent-stack";
+import { TravaMateItineraryPlannerLambdaStack } from "../src/itinerary-planner-agent/trava-mate-itinerary-planner-lambda-stack";
+import { TravaMateItineraryPlannerAgentStack } from "../src/itinerary-planner-agent/trava-mate-itinerary-planner-agent-stack";
 import { SupervisorAgentStack } from "../src/supervisor-agent/supervisor-agent-stack";
 import { CfnAgent } from "aws-cdk-lib/aws-bedrock";
 import { TravaMateCommonStack } from "../src/common/common-stack";
@@ -26,18 +26,18 @@ const commonStack = new TravaMateCommonStack(
   stackProps
 );
 
-const itenaryPlannerLambdaStack =
-  new TravaMateItenaryPlannerLambdaStack(
+const itineraryPlannerLambdaStack =
+  new TravaMateItineraryPlannerLambdaStack(
     app,
-    `TravMateItenaryPlannerLambdaStack${suffix}`,
+    `TravMateItineraryPlannerLambdaStack${suffix}`,
     stackProps
   );
 
-const itenaryPlannerAgentStack = new TravaMateItenaryPlannerAgentStack(
+const itineraryPlannerAgentStack = new TravaMateItineraryPlannerAgentStack(
   app,
-  itenaryPlannerLambdaStack.iternaryPlannerLambda,
+  itineraryPlannerLambdaStack.iternaryPlannerLambda,
   commonStack.bedrockAgentRole,
-  `TravaMateItenaryPlannerAgentStack${suffix}`,
+  `TravaMateItineraryPlannerAgentStack${suffix}`,
   stackProps
 );
 
@@ -56,7 +56,7 @@ const bookingAgentStack = new TravaMateBookingAgentStack(
 );
 
 const agentCollaborators: CfnAgent.AgentCollaboratorProperty[] = [
-  itenaryPlannerAgentStack.agentCollaborator,
+  itineraryPlannerAgentStack.agentCollaborator,
   bookingAgentStack.agentCollaborator,
 ];
 
@@ -68,11 +68,11 @@ const supervisorAgentStack = new SupervisorAgentStack(
   stackProps
 );
 
-itenaryPlannerAgentStack.addDependency(commonStack);
+itineraryPlannerAgentStack.addDependency(commonStack);
 bookingAgentStack.addDependency(commonStack);
 supervisorAgentStack.addDependency(commonStack);
 
 bookingAgentStack.addDependency(bookingLambdaStack);
-itenaryPlannerAgentStack.addDependency(itenaryPlannerLambdaStack);
-supervisorAgentStack.addDependency(itenaryPlannerAgentStack);
+itineraryPlannerAgentStack.addDependency(itineraryPlannerLambdaStack);
+supervisorAgentStack.addDependency(itineraryPlannerAgentStack);
 supervisorAgentStack.addDependency(bookingAgentStack);

@@ -5,14 +5,14 @@ import { Construct } from "constructs";
 import { BaseStack, MyStackProps } from "../../base-stack";
 import * as path from "node:path";
 
-export class TravaMateItenaryPlannerLambdaStack extends BaseStack {
+export class TravaMateItineraryPlannerLambdaStack extends BaseStack {
   public iternaryPlannerLambda: lambda.Function;
 
   constructor(scope: Construct, id: string, props?: MyStackProps) {
     super(scope, id, props);
 
-    this.iternaryPlannerLambda = new lambda.Function(this, "ItenaryPlannerLambda", {
-      functionName: `ItenaryPlannerLambda${props?.suffix}`,
+    this.iternaryPlannerLambda = new lambda.Function(this, "ItineraryPlannerLambda", {
+      functionName: `ItineraryPlannerLambda${props?.suffix}`,
       runtime: lambda.Runtime.NODEJS_22_X,
       code: lambda.Code.fromAsset(path.join(__dirname, "lambda-handler")),
       handler: "index.handler",
@@ -20,7 +20,7 @@ export class TravaMateItenaryPlannerLambdaStack extends BaseStack {
       memorySize: 128,
     });
 
-    new CfnOutput(this, "ItenaryPlannerLambdaARN", {
+    new CfnOutput(this, "ItineraryPlannerLambdaARN", {
       value: this.iternaryPlannerLambda.functionArn,
     });
 

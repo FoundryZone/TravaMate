@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import * as TravaMateItenaryPlannerAgentInfra from "../../src/itenary-planner-agent/trava-mate-itenary-planner-agent-stack";
-import * as TravaMateItenaryPlannerLambdaInfra from "../../src/itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
+import * as TravaMateItineraryPlannerAgentInfra from "../../src/itinerary-planner-agent/trava-mate-itinerary-planner-agent-stack";
+import * as TravaMateItineraryPlannerLambdaInfra from "../../src/itinerary-planner-agent/trava-mate-itinerary-planner-lambda-stack";
 import * as TravaMateInfra from "../../src/booking-agent/trava-mate-booking-agent-stack";
 import * as BookingLambdaInfra from "../../src/booking-agent/trava-mate-booking-lambda-stack";
 import { TravaMateCommonStack } from "../../src/common/common-stack";
@@ -17,19 +17,19 @@ function createAgentStacktemplate() {
     stackProps
   );
 
-  const itenaryPlannerLambdaStack =
-    new TravaMateItenaryPlannerLambdaInfra.TravaMateItenaryPlannerLambdaStack(
+  const itineraryPlannerLambdaStack =
+    new TravaMateItineraryPlannerLambdaInfra.TravaMateItineraryPlannerLambdaStack(
       app,
-      "TravMateItenaryPlannerLambdaStack",
+      "TravMateItineraryPlannerLambdaStack",
       stackProps
     );
 
-  const itenaryPlannerAgentStack =
-    new TravaMateItenaryPlannerAgentInfra.TravaMateItenaryPlannerAgentStack(
+  const itineraryPlannerAgentStack =
+    new TravaMateItineraryPlannerAgentInfra.TravaMateItineraryPlannerAgentStack(
       app,
-      itenaryPlannerLambdaStack.iternaryPlannerLambda,
+      itineraryPlannerLambdaStack.iternaryPlannerLambda,
       commonStack.bedrockAgentRole,
-      "TravaMateItenaryPlannerAgentStack",
+      "TravaMateItineraryPlannerAgentStack",
       stackProps
     );
 
@@ -48,7 +48,7 @@ function createAgentStacktemplate() {
   );
 
   const agentCollaborators: CfnAgent.AgentCollaboratorProperty[] = [
-    itenaryPlannerAgentStack.agentCollaborator,
+    itineraryPlannerAgentStack.agentCollaborator,
     bookingAgenStack.agentCollaborator,
   ];
 

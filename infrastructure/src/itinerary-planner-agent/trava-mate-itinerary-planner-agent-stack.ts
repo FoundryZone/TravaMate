@@ -7,7 +7,7 @@ import { Function } from "aws-cdk-lib/aws-lambda";
 import * as fs from "fs";
 import { CfnAgent } from "aws-cdk-lib/aws-bedrock";
 
-export class TravaMateItenaryPlannerAgentStack extends BaseStack {
+export class TravaMateItineraryPlannerAgentStack extends BaseStack {
   public agentCollaborator: CfnAgent.AgentCollaboratorProperty;
   constructor(
     scope: Construct,
@@ -20,30 +20,30 @@ export class TravaMateItenaryPlannerAgentStack extends BaseStack {
 
     const agentInstructions = fs
       .readFileSync(
-        "src/itenary-planner-agent/itenary-planner-agent-instructions.txt"
+        "src/itinerary-planner-agent/itinerary-planner-agent-instructions.txt"
       )
       .toString();
     const apipSchema = fs
       .readFileSync(
-        "src/itenary-planner-agent/itenary-planner-agent-openapi-schema.yml"
+        "src/itinerary-planner-agent/itinerary-planner-agent-openapi-schema.yml"
       )
       .toString();
 
-    const itenaryPlannerAgent = new bedrock.CfnAgent(
+    const itineraryPlannerAgent = new bedrock.CfnAgent(
       this,
-      `ItenaryPlannerAgent`,
+      `ItineraryPlannerAgent`,
       {
-        agentName: `ItenaryPlannerAgent${props?.suffix}`,
+        agentName: `ItineraryPlannerAgent${props?.suffix}`,
         description:
-          "This agent will plan itenary based on the user requirements",
+          "This agent will plan itinerary based on the user requirements",
         autoPrepare: true,
         foundationModel: "us.anthropic.claude-3-7-sonnet-20250219-v1:0",
         agentResourceRoleArn: bedrockAgentRole.roleArn,
         actionGroups: [
           {
-            actionGroupName: "ItenaryPlannerAgent",
+            actionGroupName: "ItineraryPlannerAgent",
             description:
-              "This action group wll handle all types of itenary planning.",
+              "This action group wll handle all types of itinerary planning.",
             actionGroupExecutor: {
               lambda: iternaryPlannerLambda.functionArn,
             },
@@ -57,23 +57,23 @@ export class TravaMateItenaryPlannerAgentStack extends BaseStack {
     );
 
     new CfnOutput(this, "BedrockAgentId", {
-      value: itenaryPlannerAgent.ref,
+      value: itineraryPlannerAgent.ref,
     });
 
     new CfnOutput(this, "BedrockAgentModelName", {
-      value: itenaryPlannerAgent.foundationModel ?? "",
+      value: itineraryPlannerAgent.foundationModel ?? "",
     });
 
     var agentAlias = new bedrock.CfnAgentAlias(
       this,
-      "ItenaryPlannerAgentAlias",
+      "ItineraryPlannerAgentAlias",
       {
-        agentAliasName: `ItenaryPlannerAgentAlias${props?.suffix}`,
-        agentId: itenaryPlannerAgent.ref,
+        agentAliasName: `ItineraryPlannerAgentAlias${props?.suffix}`,
+        agentId: itineraryPlannerAgent.ref,
       }
     );
 
-    agentAlias.addDependency(itenaryPlannerAgent);
+    agentAlias.addDependency(itineraryPlannerAgent);
 
     new CfnOutput(this, "BedrockAgentModelAliasName", {
       value: agentAlias.ref.split("|")[0],
@@ -83,8 +83,8 @@ export class TravaMateItenaryPlannerAgentStack extends BaseStack {
         aliasArn: agentAlias.attrAgentAliasArn,
       },
       collaborationInstruction:
-        "This agent will be responsible for planning user travel iteneries.",
-      collaboratorName: "ItenaryPlannerAgent",
+        "This agent will be responsible for planning user travel itinaries.",
+      collaboratorName: "ItineraryPlannerAgent",
     };
   }
 }
