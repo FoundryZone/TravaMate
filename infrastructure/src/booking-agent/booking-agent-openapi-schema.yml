@@ -1,26 +1,33 @@
 openapi: 3.0.3
 info:
-  title: "User Greeting API"
-  description: "This API greets a user by name via a simple HTTP GET request."
+  title: "Hotel booking API"
+  description: "This API can book hotel."
   version: 1.0.0
 
 paths:
-  /greet:
+  /book-hotel:
     get:
-      summary: "Greet a user"
-      description: "Returns a personalized greeting message using the provided user's name."
+      summary: "Books a hotel"
+      description: "Books hotel and returns bookingId"
       operationId: greet
       parameters:
-        - name: name
+        - name: hotelName
           in: query
           required: true
-          description: "The name of the user to greet."
+          description: "The name of the hotel to book."
           schema:
             type: string
-            example: "Alice"
+            example: "Taj Mahal"
+        - name: bookingDate
+          in: query
+          required: true
+          description: "Date of the booking"
+          schema:
+            type: string
+            example: "9th Dec 2025"
       responses:
         '200':
-          description: "Successful greeting response"
+          description: "Successful booking response"
           content:
             application/json:
               schema:
@@ -28,10 +35,10 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: "The personalized greeting message."
-                    example: "Hello, Alice!"
+                    description: "Booking response with booking id."
+                    example: "Booking successful with id - 1076"
         '400':
-          description: "Bad Request - Missing or invalid name parameter"
+          description: "Bad Request - Missing or invalid hotelName or bookingDate parameter"
           content:
             application/json:
               schema:

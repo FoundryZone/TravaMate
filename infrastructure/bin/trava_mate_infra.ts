@@ -2,8 +2,11 @@
 import * as cdk from "aws-cdk-lib";
 import { TravaMateBookingAgentStack } from "../src/booking-agent/trava-mate-booking-agent-stack";
 import { TravaMateAgentBookingLambdaStack } from "../src/booking-agent/trava-mate-booking-lambda-stack";
-import { TravaMateItenaryPlannerLambdaStack } from "../src/itenary-planner-agent/trava-mate-itenary-planner-lambda-stack";
-import { TravaMateItenaryPlannerAgentStack } from "../src/itenary-planner-agent/trava-mate-itenary-planner-agent-stack";
+import { TravaMateItineraryPlannerLambdaStack } from "../src/itinerary-planner-agent/trava-mate-itinerary-planner-lambda-stack";
+import { TravaMateItineraryPlannerAgentStack } from "../src/itinerary-planner-agent/trava-mate-itinerary-planner-agent-stack";
+import { SupervisorAgentStack } from "../src/supervisor-agent/supervisor-agent-stack";
+import { CfnAgent } from "aws-cdk-lib/aws-bedrock";
+import { TravaMateCommonStack } from "../src/common/common-stack";
 
 const app = new cdk.App();
 
@@ -17,32 +20,59 @@ const stackProps = {
   },
 };
 
-const travaMateItenaryPlannerLambdaStack = new TravaMateItenaryPlannerLambdaStack(
+const commonStack = new TravaMateCommonStack(
   app,
-  `TravMateItenaryPlannerLambdaStack${suffix}`,
+  `TravaMateCommonStack${suffix}`,
   stackProps
 );
 
-const travaMateItenaryPlannerAgentStack =  new TravaMateItenaryPlannerAgentStack(
+const itineraryPlannerLambdaStack =
+  new TravaMateItineraryPlannerLambdaStack(
+    app,
+    `TravMateItineraryPlannerLambdaStack${suffix}`,
+    stackProps
+  );
+
+const itineraryPlannerAgentStack = new TravaMateItineraryPlannerAgentStack(
   app,
-  travaMateItenaryPlannerLambdaStack.iternaryPlannerLambda,
-  `TravaMateItenaryPlannerAgentStack${suffix}`,
+  itineraryPlannerLambdaStack.iternaryPlannerLambda,
+  commonStack.bedrockAgentRole,
+  `TravaMateItineraryPlannerAgentStack${suffix}`,
   stackProps
 );
 
-travaMateItenaryPlannerAgentStack.addDependency(travaMateItenaryPlannerLambdaStack);
-
-const travaMateBookingLambdaStack = new TravaMateAgentBookingLambdaStack(
+const bookingLambdaStack = new TravaMateAgentBookingLambdaStack(
   app,
   `TravMateAgentBookingLambdaStack${suffix}`,
   stackProps
 );
 
-const travaMateBookingAgentStack =  new TravaMateBookingAgentStack(
+const bookingAgentStack = new TravaMateBookingAgentStack(
   app,
-  travaMateBookingLambdaStack.bookingLambda,
+  bookingLambdaStack.bookingLambda,
+  commonStack.bedrockAgentRole,
   `TravaMateBookingAgentStack${suffix}`,
   stackProps
 );
 
-travaMateBookingAgentStack.addDependency(travaMateBookingLambdaStack);
+const agentCollaborators: CfnAgent.AgentCollaboratorProperty[] = [
+  itineraryPlannerAgentStack.agentCollaborator,
+  bookingAgentStack.agentCollaborator,
+];
+
+const supervisorAgentStack = new SupervisorAgentStack(
+  app,
+  agentCollaborators,
+  commonStack.bedrockAgentRole,
+  `SupervisorAgentStack${suffix}`,
+  stackProps
+);
+
+itineraryPlannerAgentStack.addDependency(commonStack);
+bookingAgentStack.addDependency(commonStack);
+supervisorAgentStack.addDependency(commonStack);
+
+bookingAgentStack.addDependency(bookingLambdaStack);
+itineraryPlannerAgentStack.addDependency(itineraryPlannerLambdaStack);
+supervisorAgentStack.addDependency(itineraryPlannerAgentStack);
+supervisorAgentStack.addDependency(bookingAgentStack);

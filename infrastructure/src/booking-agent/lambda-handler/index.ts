@@ -1,7 +1,7 @@
 import {
   BedrockAgentInvocationInput,
   BedrockAgentInvocationResponse,
-} from "../../../types";
+} from "../../types";
 
 export const handler = async ({
   inputText,
@@ -16,13 +16,14 @@ export const handler = async ({
   let responseText = "{}";
   let httpStatusCode = 200;
   switch (apiPath) {
-    case "/greet":
-      const name = parameters.find((x) => x.name === "name");
-      if (name) {
-        responseText = `Hello ${name?.value}`;
+    case "/book-hotel":
+      const hotelName = parameters.find((x) => x.name === "hotelName");
+      const bookingDate = parameters.find((x) => x.name === "bookingDate");
+      if (hotelName && bookingDate) {
+        responseText = `Booking successful with id - 1076`;
         httpStatusCode = 200;
       } else {
-        responseText = ` Bad Request - Missing or invalid name parameter`;
+        responseText = ` Bad Request - Missing or invalid hotelName or bookingDate parameter`;
         httpStatusCode = 400;
       }
       break;

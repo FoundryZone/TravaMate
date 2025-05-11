@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: "Itinerary Planner API"
+  description: "This API provides endpoints to help plan itinerary."
+  version: 1.0.0
+
+paths:
+  /get-weather:
+    get:
+      summary: "Get weather for a city"
+      description: "Returns weather information for the specified city."
+      operationId: getWeather
+      parameters:
+        - name: city
+          in: query
+          required: true
+          description: "The name of the city to fetch weather for."
+          schema:
+            type: string
+            example: "Amravati"
+      responses:
+        '200':
+          description: "Successful weather response"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  city:
+                    type: string
+                    description: "The name of the city."
+                    example: "Amravati"
+                  temperature:
+                    type: number
+                    format: float
+                    description: "Current temperature in Celsius."
+                    example: 22.5
+                  condition:
+                    type: string
+                    description: "Weather condition description."
+                    example: "Partly cloudy"
+        '400':
+          description: "Bad Request - Missing or invalid city parameter"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: "Error message explaining the issue."
+                    example: "Query parameter 'city' is required."
