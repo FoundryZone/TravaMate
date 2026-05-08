@@ -1,0 +1,33 @@
+.toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-card-bg);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.option:hover {
+  border-color: var(--color-primary);
+}
+
+.option.active {
+  border-color: var(--foreground);
+  background: var(--color-card-bg);
+  font-weight: 600;
+}
+
+.icon {
+  font-size: 14px;
+}

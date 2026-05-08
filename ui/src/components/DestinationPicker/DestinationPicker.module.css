@@ -1,0 +1,65 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stateGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stateLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.placeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.placePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-card-bg);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.placePill:hover {
+  border-color: var(--color-primary);
+}
+
+.pillSelected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.pillEmoji {
+  font-size: 16px;
+}
+
+.pillName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.pillSelected .pillName {
+  color: var(--color-primary);
+}
+
+.pillCheck {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-left: 2px;
+}

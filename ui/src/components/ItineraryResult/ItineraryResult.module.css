@@ -1,0 +1,679 @@
+/* ── Page shell ── */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F9FAFB;
+}
+
+/* ── Tab Nav ── */
+
+.tabNav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-card-bg);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 56px;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  height: 100%;
+}
+
+.tab {
+  padding: 0 20px;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  height: 100%;
+  transition: color 0.15s;
+}
+
+.tab:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.tabActive {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.modifyBtn {
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-card-bg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: border-color 0.15s;
+  white-space: nowrap;
+}
+
+.modifyBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── Body + Container ── */
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Hero ── */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+  gap: 10px;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.heroTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.heroStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+/* ── Common card ── */
+
+.card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.sectionSubtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ── AI Summary ── */
+
+.summaryList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.summaryItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--foreground);
+  line-height: 1.5;
+}
+
+.bulletDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.aiReason {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-primary-light);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-primary);
+  line-height: 1.5;
+}
+
+.aiReasonIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ── Timeline ── */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dayCard {
+  display: flex;
+  gap: 0;
+}
+
+.dayCardLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  flex-shrink: 0;
+  padding-top: 24px;
+}
+
+.dayBadge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.connector {
+  flex: 1;
+  width: 2px;
+  background: var(--color-primary-light);
+  margin-top: 4px;
+  min-height: 24px;
+}
+
+.dayCardRight {
+  flex: 1;
+  margin-bottom: 24px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-left: 0;
+}
+
+.dayImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.dayContent {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dayTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.dayMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.metaIcon {
+  flex-shrink: 0;
+}
+
+.highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.highlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--foreground);
+  line-height: 1.4;
+}
+
+.highlightDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.noteBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #FFFBEB;
+  border-left: 3px solid #F59E0B;
+  border-radius: 0 8px 8px 0;
+  font-size: 12px;
+  color: #92400E;
+  line-height: 1.5;
+}
+
+/* ── Budget Table ── */
+
+.budgetTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.budgetTable th {
+  text-align: left;
+  padding: 10px 12px;
+  background: #F9FAFB;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.budgetTable td {
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--foreground);
+}
+
+.budgetTable tr:last-child td {
+  border-bottom: none;
+}
+
+.totalRow td {
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.amountCell {
+  text-align: right;
+  font-weight: 500;
+}
+
+/* ── Saving Tips ── */
+
+.tipsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tipItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--foreground);
+  line-height: 1.5;
+}
+
+.tipCheck {
+  color: #16A34A;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.savingResult {
+  padding: 16px;
+  background: #F0FDF4;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.savingResult > p {
+  font-size: 13px;
+  color: #15803D;
+  font-weight: 500;
+}
+
+.savingStats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.savingStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.savingStatValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.savingStatLabel {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.savingStatDivider {
+  width: 1px;
+  height: 36px;
+  background: var(--color-border);
+}
+
+/* ── Best Months ── */
+
+.monthsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.monthBadge {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.monthGood {
+  background: #DCFCE7;
+  color: #15803D;
+  border: 1.5px solid #86EFAC;
+}
+
+.monthAvoid {
+  background: #FEE2E2;
+  color: #DC2626;
+  border: 1.5px solid #FECACA;
+}
+
+.monthNote {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ── Health Tips ── */
+
+.healthWarning {
+  font-size: 14px;
+  color: #92400E;
+  background: #FFFBEB;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 3px solid #F59E0B;
+}
+
+.healthGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.healthCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.healthColTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.healthList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--foreground);
+  line-height: 1.5;
+}
+
+.healthList li::before {
+  content: '• ';
+  color: var(--color-primary);
+}
+
+/* ── Final Recommendation ── */
+
+.finalCard {
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, #fff 100%);
+  border-color: var(--color-primary);
+}
+
+.finalSubtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.finalList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.finalItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.finalNumber {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.finalOutcome {
+  padding: 16px;
+  background: rgba(124, 58, 237, 0.06);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.finalOutcome > p {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.outcomeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.outcomeItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--foreground);
+}
+
+.outcomeCheck {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ── Bottom CTA ── */
+
+.cta {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.modifyPlanBtn {
+  padding: 13px 32px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-card-bg);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.modifyPlanBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 640px) {
+  .tabNav {
+    padding: 0 16px;
+  }
+
+  .tab {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .container {
+    padding: 20px 12px 48px;
+  }
+
+  .hero {
+    height: 240px;
+  }
+
+  .heroTitle {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .dayCardLeft {
+    width: 48px;
+  }
+
+  .dayBadge {
+    width: 36px;
+    height: 36px;
+    font-size: 10px;
+  }
+
+  .healthGrid,
+  .outcomeGrid {
+    grid-template-columns: 1fr;
+  }
+}

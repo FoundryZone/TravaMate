@@ -1,0 +1,75 @@
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-card-bg);
+  transition: border-color 0.15s;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-primary);
+}
+
+.currency {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--foreground);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--foreground);
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.separator {
+  font-size: 18px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  padding-bottom: 14px;
+}
+
+@media (max-width: 480px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .separator {
+    display: none;
+  }
+}

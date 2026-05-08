@@ -1,0 +1,48 @@
+.wrapper {
+  margin-top: 16px;
+}
+
+/* Reset ALL day buttons to transparent — fixes dark/grey box on every date */
+.wrapper :global(.rdp-day_button) {
+  background: transparent !important;
+  border: 2px solid transparent !important;
+  color: var(--foreground) !important;
+  border-radius: 50% !important;
+}
+
+.wrapper :global(.rdp-day_button:hover) {
+  background: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+}
+
+/* Range start and end: filled purple circle */
+.wrapper :global(.rdp-range_start .rdp-day_button),
+.wrapper :global(.rdp-range_end .rdp-day_button) {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+
+/* Range middle: light purple, no border radius */
+.wrapper :global(.rdp-range_middle .rdp-day_button) {
+  background: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+  border-radius: 0 !important;
+}
+
+/* Today: bold purple text */
+.wrapper :global(.rdp-today .rdp-day_button) {
+  font-weight: 700 !important;
+  color: var(--color-primary) !important;
+}
+
+/* Nav chevron arrows */
+.wrapper :global(.rdp-chevron) {
+  fill: var(--color-primary) !important;
+}
+
+/* Disabled days */
+.wrapper :global(.rdp-day_button:disabled) {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}

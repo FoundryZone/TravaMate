@@ -1,0 +1,144 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-card-bg);
+  cursor: pointer;
+  transition: border-color 0.15s;
+  min-height: 48px;
+}
+
+.triggerOpen {
+  border-color: var(--color-primary);
+}
+
+.trigger:hover {
+  border-color: var(--color-primary);
+}
+
+.planeIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.valueText {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+.iataTag {
+  padding: 2px 8px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-text-muted);
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.clearBtn:hover {
+  color: var(--foreground);
+}
+
+.chevron {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-card-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.option:hover {
+  background: var(--color-primary-light);
+}
+
+.optionSelected {
+  background: var(--color-primary-light);
+}
+
+.optionName {
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+.optionIata {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.noResults {
+  padding: 16px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-align: center;
+}

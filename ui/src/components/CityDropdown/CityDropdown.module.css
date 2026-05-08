@@ -1,0 +1,145 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-card-bg);
+  cursor: pointer;
+  transition: border-color 0.15s;
+  min-height: 48px;
+}
+
+.triggerOpen {
+  border-color: var(--color-primary);
+}
+
+.trigger:hover {
+  border-color: var(--color-primary);
+}
+
+.searchIcon {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.chevron {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-card-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  list-style: none;
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.1s;
+}
+
+.option:last-child {
+  border-bottom: none;
+}
+
+.option:hover {
+  background: #F9FAFB;
+}
+
+.cityInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cityAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.cityName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.actionBtn {
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.addBtn {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary-light);
+}
+
+.addBtn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.removeBtn {
+  background: #FEE2E2;
+  color: #DC2626;
+  border-color: #FEE2E2;
+}
+
+.removeBtn:hover {
+  background: #DC2626;
+  color: #fff;
+}
+
+.noResults {
+  padding: 16px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-align: center;
+}

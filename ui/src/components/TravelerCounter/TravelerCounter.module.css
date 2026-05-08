@@ -1,0 +1,63 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 100px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.btnMinus,
+.btnPlus {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-card-bg);
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  transition: opacity 0.15s;
+}
+
+.btnMinus:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btnPlus {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.btnPlus:hover {
+  background: var(--color-primary-hover);
+}
+
+.count {
+  width: 36px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.subLabel {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
